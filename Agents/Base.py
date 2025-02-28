@@ -1,6 +1,6 @@
 from abc import ABC,abstractmethod
 from langchain_google_genai import ChatGoogleGenerativeAI
-# from Configs import get_settings
+# from Configs import get_settingss
 from langgraph.checkpoint.memory import InMemorySaver
 
 class Base(ABC):
@@ -14,5 +14,5 @@ class Base(ABC):
             max_retries=2,
             )
         
-        self.memory= InMemorySaver()
+        self.memory = InMemorySaver()
         
