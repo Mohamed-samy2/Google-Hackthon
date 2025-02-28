@@ -1,6 +1,5 @@
 from abc import ABC,abstractmethod
 from langchain_google_genai import ChatGoogleGenerativeAI
-# from Configs import get_settingss
 from langgraph.checkpoint.memory import InMemorySaver
 
 class Base(ABC):
@@ -8,9 +7,9 @@ class Base(ABC):
         super().__init__()
         
         self.llm =ChatGoogleGenerativeAI(
-            model="gemini-2.0-flash",
+            model="gemini-1.5-pro",
             temperature=0.4,
-            api_key='AIzaSyBMfI-quDrgCwNBFWologuKAkxgPXfiUkI',
+            api_key='AIzaSyBqwAc1lQu01M72g4CcFSiqQ_j48du4ZwU',
             max_retries=2,
             )
         
