@@ -3,3 +3,4 @@ langgraph==0.2.60
 langchain-community==0.3.13
 langchain==0.3.13
 fastapi[standard]==0.115.8
+google-api-python-client==2.162.0
