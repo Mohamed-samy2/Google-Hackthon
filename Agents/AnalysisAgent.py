@@ -29,7 +29,7 @@ class AnalysisAgent(Base):
         current_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Construct the full path to the CSV file
-        file_path = os.path.join(current_dir, "credit_data.csv")
+        file_path = os.path.join(current_dir, "credit_data_processed.csv")
         self.data = pd.read_csv(file_path)
 
         workflow = StateGraph(Analysis_State)
@@ -45,22 +45,22 @@ class AnalysisAgent(Base):
         self.graph = workflow.compile(checkpointer=self.memory)
     
     def get_client_data(self,state:Analysis_State):
-        client_data = self.data[self.data["Customer Name"] == state['client_name']]
+        client_data = self.data[self.data["Name"] == state['client_name']]
         old_data_str = "\n".join([f"{col}: {client_data.iloc[0][col]}" for col in client_data.columns])
         return {'old_data':old_data_str}
     
     def get_new_data(self,state:Analysis_State):
         
         return {'new_data': f"""
-                        Consistency of Work & Gigs: 7
-                        Freelancing Experience (years) : 1
-                        Income Diversification : 4.0
+                        Consistency of Work & Gigs: 10
+                        Freelancing Experience (years) : 2
+                        Income Diversification : 4.5
                         Financial Risk Events : 2.5
-                        FICO Score : 605
-                        Credit Score : 152000
-                        IScore : 484
-                        Interest Rate (%) : 17
-                        Loan Eligibility : 1
+                        FICO Score : 500
+                        Credit Score : 80000
+                        IScore : 450
+                        Interest Rate (%) : 0
+                        Loan Eligibility : 1
                         Car Average Price :{state['cars_avg_salary']}
                         Club Average Price :{state['club_avg_salary']}
                         University Average Fees :{state['avg_fees']}
@@ -70,26 +70,27 @@ class AnalysisAgent(Base):
     def get_response(self,state:Analysis_State):
 
         sys_prompt = '\n'.join([
-            "You are an AI assistant that speaks with very simple , clear and summerized language for an installment platform that provides dynamic credit and installment plans to customers.when the customer fainancial status improved you should suggest to increase the installment and vise versa, increase or decrease the installments with logical amounts with respect to the customer status update and dont exceed the following given limits (+-2k), assume that the current installment is 8k ",
+            "**You are an AI assistant that speaks with very simple , clear language for an installment platform that provides dynamic credit and installment plans to customers.**",
+            "when the customer fainancial status improved you should suggest to increase the installment and vise versa, increase or decrease the installments with logical amounts with respect to the customer status update and don't exceed the following given limits (+ or - 2k), assume that the current installment is 8k.",
             "Your role is to:",
-            "1) Analyze customer data and summarize it in a simple, clear format.",
-            '2) Adjust the installment amount dynamically based on financial changes while keeping it within an acceptable range (±2K).',
+            "1) Analyze customer data in a simple, clear format.",
+            '2) Adjust the installment amount dynamically based on financial changes while keeping it within an acceptable range (+ or - 2k).',
             "3) Update the installment plan if the customer's financial situation changes, such as:",
             '- Taking multiple jobs this month',
             '- Increase or decrease in income',           
         ])
- 
+        
         grade_prompt = ChatPromptTemplate.from_messages(
             [
                 ("system",sys_prompt),
                 ("user", '\n'.join(['### Customer Data:',
-            '*Old Data:*',
-            '{old_data_str}',
-            '*Updated Data:*',
-            '{updated_data_str}',
-            '### Expected Output:',
-            '- Summarized customer data (clear and simple).',
-            '- New recommended installment amount with reasoning.'])),
+                '*Old Data:*',
+                '{old_data_str}',
+                '*Updated Data:*',
+                '{updated_data_str}',
+                '### Expected Output:',
+                '- Summarized customer data (clear and simple).',
+                '- New recommended installment amount with reasoning.'])),
             ]
         )
         
@@ -102,4 +103,4 @@ class AnalysisAgent(Base):
 if "__main__" == __name__:
     agent = AnalysisAgent()
     config = {'configurable':{"thread_id":1}}
-    print(agent.graph.invoke({'client_name':1},config=config)['suggestions'].content)
+    print(agent.graph.invoke({'client_name':7},config=config)['suggestions'].content)

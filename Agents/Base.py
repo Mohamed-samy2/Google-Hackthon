@@ -8,9 +8,9 @@ class Base(ABC):
         
         self.llm =ChatGoogleGenerativeAI(
             model="gemini-1.5-pro",
-            temperature=0.4,
+            temperature=0.6,
             api_key='AIzaSyBqwAc1lQu01M72g4CcFSiqQ_j48du4ZwU',
-            max_retries=2,
+            max_retries=4,
             )
         
         self.memory = InMemorySaver()

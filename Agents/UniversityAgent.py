@@ -57,7 +57,7 @@ class UniversityAgent(Base):
     def get_results(self,state:Uni_State):
         uni_name = state["uni_name"]
         college_name = state["college_name"]
-        prompt = f"What is the average egyptian tuition fees for faculty of {college_name} in  {uni_name} University in Egypt for Egyptain Students per semester."
+        prompt = f"What is the average egyptian tuition fees for faculty of {college_name} in {uni_name} University in Egypt for Egyptain Students per semester."
         search_results = self.search.invoke({"query":prompt})
         return {'search_results':'\n'.join([result['content'] for result in search_results])}
     

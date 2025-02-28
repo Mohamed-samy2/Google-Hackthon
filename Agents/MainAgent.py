@@ -53,12 +53,12 @@ class MainAgent(Base):
 if "__main__" == __name__:
     agent = MainAgent()
     config = {'configurable':{"thread_id":1}}
-    input = {"club_name":"el ahly club",
+    input =  {"club_name":"el ahly club",
               "car_name":"suzuki",
               "car_model":"swift",
               "uni_name":"Ain Shams",
               "college_name":"Engineering",
-              'client_name':1
+              'client_name':7
              }
     result = agent.graph.invoke(input,config=config)
     print(result['suggestions'].content)
