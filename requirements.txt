@@ -5,3 +5,4 @@ langchain==0.3.13
 fastapi[standard]==0.115.8
 google-api-python-client==2.162.0
 pandas==2.2.3
+python-dotenv==1.0.1

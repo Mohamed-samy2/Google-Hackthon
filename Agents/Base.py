@@ -1,15 +1,15 @@
-from abc import ABC,abstractmethod
+from abc import ABC
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langgraph.checkpoint.memory import InMemorySaver
-
+from dotenv import load_dotenv
 class Base(ABC):
     def __init__(self):
         super().__init__()
         
+        load_dotenv()
         self.llm =ChatGoogleGenerativeAI(
-            model="gemini-1.5-pro",
+            model="gemini-2.0-flash",
             temperature=0.6,
-            api_key='AIzaSyBqwAc1lQu01M72g4CcFSiqQ_j48du4ZwU',
             max_retries=4,
             )
         

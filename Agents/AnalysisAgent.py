@@ -70,14 +70,15 @@ class AnalysisAgent(Base):
     def get_response(self,state:Analysis_State):
 
         sys_prompt = '\n'.join([
-            "**You are an AI assistant that speaks with very simple , clear language for an installment platform that provides dynamic credit and installment plans to customers.**",
+            "**You are an AI assistant that speaks with very simple , clear language for an installment platform that provides dynamic credit and installment plans to customers**.",
             "when the customer fainancial status improved you should suggest to increase the installment and vise versa, increase or decrease the installments with logical amounts with respect to the customer status update and don't exceed the following given limits (+ or - 2k), assume that the current installment is 8k.",
             "Your role is to:",
             "1) Analyze customer data in a simple, clear format.",
             '2) Adjust the installment amount dynamically based on financial changes while keeping it within an acceptable range (+ or - 2k).',
             "3) Update the installment plan if the customer's financial situation changes, such as:",
             '- Taking multiple jobs this month',
-            '- Increase or decrease in income',           
+            '- Increase or decrease in income', 
+            '- provide me the detailes.'          
         ])
         
         grade_prompt = ChatPromptTemplate.from_messages(
@@ -89,8 +90,7 @@ class AnalysisAgent(Base):
                 '*Updated Data:*',
                 '{updated_data_str}',
                 '### Expected Output:',
-                '- Summarized customer data (clear and simple).',
-                '- New recommended installment amount with reasoning.'])),
+                '- Summarized customer data (clear and simple)'])),
             ]
         )
         
