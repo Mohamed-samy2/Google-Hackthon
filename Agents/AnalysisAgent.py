@@ -47,10 +47,15 @@ class AnalysisAgent(Base):
     def get_new_data(self,state:Analysis_State):
         
         return {'new_data': """
-                        (Manually enter updated values here)
-                        Income: 15000
-                        Spending: 6500
-                        Installment: 8900
+                        Consistency of Work & Gigs: 7
+                        Freelancing Experience (years) : 1
+                        Income Diversification : 4.0
+                        Financial Risk Events : 2.5
+                        FICO Score : 605
+                        Credit Score : 152000
+                        IScore : 484
+                        Interest Rate (%) : 17
+                        Loan Eligibility : 1
                         """
                 }
         
@@ -66,20 +71,20 @@ class AnalysisAgent(Base):
             '- Taking multiple jobs this month',
             '- Increase or decrease in income',
             '- Changes in spending habits',
-            '### Customer Data:',
+            
+        ])
+        
+        grade_prompt = ChatPromptTemplate.from_messages(
+            [
+                ("system",sys_prompt),
+                ("user", '\n'.join(['### Customer Data:',
             '*Old Data:*',
             '{old_data_str}',
             '*Updated Data:*',
             '{updated_data_str}',
             '### Expected Output:',
             '- Summarized customer data (clear and simple).',
-            '- New recommended installment amount with reasoning.'
-        ])
-        
-        grade_prompt = ChatPromptTemplate.from_messages(
-            [
-                ("system",sys_prompt),
-                ("user", ''),
+            '- New recommended installment amount with reasoning.'])),
             ]
         )
         
@@ -94,4 +99,4 @@ class AnalysisAgent(Base):
 if "__main__" == __name__:
     agent = AnalysisAgent()
     config = {'configurable':{"thread_id":1}}
-    print(agent.graph.invoke({'client_name':1},config=config)['suggestions'])
+    print(agent.graph.invoke({'client_name':1},config=config)['suggestions'].content)
