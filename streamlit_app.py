@@ -5,11 +5,25 @@ from Agents.MainAgent import MainAgent  # Ensure this import works properly
 agent = MainAgent()
 
 # Streamlit UI with dark mode settings
-st.set_page_config(page_title="Google AI Finance Hackathon - BNPL", layout="centered")
+# st.set_page_config(page_title="BNPL", layout="centered")
 
-# Streamlit default dark mode (works with Streamlit themes)
-st.title("Google AI Finance Hackathon - BNPL")
-st.image("R.jpg", width=850)
+# # Apply custom CSS to center and enlarge the title
+# st.markdown(
+#     """
+#     <style>
+#         .title {
+#             text-align: center;
+#             font-size: 1000px;
+#             font-weight: bold;
+#         }
+#     </style>
+#     """,
+#     unsafe_allow_html=True
+# )
+
+# # Display the title
+# st.markdown('<h1 class="title">BNPL</h1>', unsafe_allow_html=True)
+st.image("freepik__a-clean-corporate-background-with-fiza-financial-i__27235.png", width=1500)
 
 # Center align the button
 st.markdown("<div style='display: flex; justify-content: center;'>", unsafe_allow_html=True)
@@ -34,7 +48,7 @@ if st.button("Generate Plan"):
         # Extract and display suggestions
         if "suggestions" in result:
             suggestions = result["suggestions"].content
-            st.subheader("BNPL Plan Suggestions:")
+            st.subheader("FIZA Plan Suggestions:")
             st.markdown(suggestions)
         else:
             st.error("No suggestions found in the response.")
