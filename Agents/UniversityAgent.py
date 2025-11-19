@@ -32,7 +32,7 @@ class UniversityAgent(Base):
         self.llm =ChatGoogleGenerativeAI(
             model="gemini-2.0-flash",
             temperature=0.4,
-            api_key='AIzaSyBMfI-quDrgCwNBFWologuKAkxgPXfiUkI',
+            api_key='',
             max_retries=2,
             )
         
